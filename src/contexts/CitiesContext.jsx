@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import baseData from "../data/cities.json";
 
 const CitiesContext = createContext();
@@ -22,7 +28,7 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
-  async function getCity(id) {
+  const getCity = useCallback(async function getCity(id) {
     try {
       setIsLoading(true);
       const city = baseData.cities.find((city) => city.id === Number(id));
@@ -36,7 +42,7 @@ function CitiesProvider({ children }) {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
 
   async function createCity(newCity) {
     try {
