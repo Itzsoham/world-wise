@@ -1,10 +1,12 @@
+import { useCities } from "../contexts/CitiesContext";
 import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
 import Message from "./Message";
 import Spinner from "./Spinner";
-import PropTypes from "prop-types";
 
-function CountryList({ cities, isLoading }) {
+function CountryList() {
+  const { isLoading, cities } = useCities();
+
   if (isLoading) return <Spinner />;
   if (!cities.length)
     return (
@@ -25,10 +27,5 @@ function CountryList({ cities, isLoading }) {
     </ul>
   );
 }
-
-CountryList.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
 
 export default CountryList;
